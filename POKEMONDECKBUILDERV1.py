@@ -1,50 +1,48 @@
 from io import BytesIO
 from PIL import Image
 import requests
-from pokemontcgsdk import Card
-from pokemontcgsdk import Set
 import json
 import os
-from tcgdexsdk import TCGdex, Language
 from pathlib import Path
-tcgdex = TCGdex()
-tcgdex = TCGdex("en")
 
 # LIMITLESS DECKLIST COPY AND PASTE
 
 deck_text = """
-Pokémon: 23
-4 Dreepy TWM 128
-4 Drakloak TWM 129
-3 Dragapult ex TWM 130
-2 Duskull PRE 35
-2 Dusclops PRE 36
-1 Dusknoir PRE 37
-2 Budew PRE 4
-1 Bloodmoon Ursaluna ex TWM 141
+Pokémon: 16
+4 N's Zorua JTG 97
+4 N's Zoroark ex JTG 98
+2 Munkidori TWM 95
+2 N's Reshiram JTG 116
+1 Yveltal MEG 88
 1 Fezandipiti ex SFA 38
-1 Latias ex SSP 76
-7 Munkidori TWM 95
-1 Hawlucha SVI 118
+1 Pecharunt ex SFA 39
+1 Okidogi ex SFA 36
 
-Trainer: 30
-4 Lillie's Determination MEG 119
-4 Iono PAL 185
+Trainer: 37
+3 Cyrano SSP 170
+3 Iono PAL 185
 3 Boss's Orders MEG 114
-2 Hilda WHT 84
+2 Lillie's Determination MEG 119
+2 Janine's Secret Art PRE 112
+1 Penny SVI 183
+1 Xerosic's Machinations SFA 64
 1 Professor Turo's Scenario PAR 171
 4 Buddy-Buddy Poffin TEF 144
-4 Ultra Ball MEG 131
-3 Counter Catcher PAR 160
-4 Night Stretcher SFA 61
+2 Counter Catcher PAR 160
+2 Energy Switch MEG 115
+2 Super Rod PAL 188
+1 Night Stretcher SFA 61
+1 Secret Box TWM 163
+1 Pal Pad SVI 182
 1 Nest Ball SVI 181
-2 Jamming Tower TWM 153
+1 N's PP Up JTG 153
+1 Air Balloon BLK 79
+1 Binding Mochi PRE 95
+2 Artazon PAL 171
+2 Team Rocket's Watchtower DRI 180
 
 Energy: 7
-3 Luminous Energy PAL 191
-2 Psychic Energy MEE 5
-1 Fire Energy MEE 2
-1 Neo Upper Energy TEF 162
+7 Darkness Energy SVE 7
 """
 
 
@@ -135,7 +133,7 @@ def delete_card():
         print(f"Found: {card}")
 
     choice = input(
-        "Delete completely or decrement amount? (delete/decrement): ").strip().lower()
+        "Delete completely or decrement the amount? (delete/decrement): ").strip().lower()
     if choice == "delete":
         cards = [c for c in cards if c["CardName"].lower() != name.lower()]
         print(f"Deleted all copies of {name}.")
@@ -159,7 +157,7 @@ def delete_card():
 
 def storageDecisionTree():
     storageChoice = input(
-        "what kind of storage? (1. Names of cards , 2. Names and sets, 3. Everythang, 4. Look for set or card, 5. back): ")
+        "what kind of storage? (Names of cards (1), Names and sets (2), Everythang (3), Look for set or card (4), back (5): ")
     cards = load_cards()
     if storageChoice == "1":
         print([c["CardName"] for c in cards])
@@ -173,7 +171,7 @@ def storageDecisionTree():
         storageDecisionTree()
     elif storageChoice == "4":
         x = input(
-            "Are you looking for all cards in a set? or the amount of single card? (1 or 2): ")
+            "Are you looking for all cards in a set? (1) or the amount of single card? (2): ")
         if x == "1":
             y = input("What set?:")
             if y.upper() in list(map(lambda x: x["CardSet"], cards)):
@@ -181,12 +179,12 @@ def storageDecisionTree():
             else:
                 print("Set is currently not in the system please try again later!")
         elif x == "2":
-            y = input("What Pokemon?: ")
+            y = input("What Card?: ")
             if y.lower() in list(map(lambda x: x["CardName"].lower(), cards)):
                 filteredCards = list(
                     filter(lambda x: x["CardName"].lower() == y.lower(), cards))
                 if not filteredCards:
-                    x = input("Card is not in the system. Input it? Y/N")
+                    x = input("Card is not in the system. Input it? (Y/N)")
                     if x.upper() == "Y":
                         inputcards()
                     else:
@@ -211,17 +209,17 @@ def storageDecisionTree():
 
                         choice = int(input("Which copy?: "))
 
-                    if not (1 <= choice <= len(filteredCards)):
-                        print("Invalid choice.")
-                        quequiereshacer()
-                    selected_card = filteredCards[choice - 1]
+                        if not (1 <= choice <= len(filteredCards)):
+                            print("Invalid choice.")
+                            quequiereshacer()
+                        selected_card = filteredCards[choice - 1]
                     openurl(selected_card)
                 else:
                     quequiereshacer()
 
             else:
                 x = input(
-                    "Card is currently not in the system. Would you like to input it? Y/N: ")
+                    "Card is currently not in the system. Would you like to input it? (Y/N): ")
                 if x.upper() == "Y":
                     inputcards()
                 else:
@@ -237,7 +235,7 @@ def storageDecisionTree():
 def quequiereshacer():
     while True:
         choice = input(
-            "What do you wanna do? (inputcards(1), delete storage(2), open storage(3), next page(4), or quit(5)): ")
+            "What do you wanna do? inputcards (1), delete storage (2), open storage (3), next page (4), or quit (5): ")
         if choice == "1":
             inputcards()
         elif choice == "2":
@@ -250,7 +248,7 @@ def quequiereshacer():
             storageDecisionTree()
         elif choice == "4":
             choice1 = input(
-                "What do you wanna do? (add your deck to storage? (1),check if decklist can be made through storage(2), (back(3), or quit(5)): ")
+                "What do you wanna do? add decklist to storage (1), do you have the cards to make decklist (2), back (3), or quit (5): ")
             if choice1 == "1":
                 addDeckToStorage()
             elif choice1 == "2":
