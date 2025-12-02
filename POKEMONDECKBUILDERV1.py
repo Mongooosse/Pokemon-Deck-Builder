@@ -8,41 +8,7 @@ from pathlib import Path
 # LIMITLESS DECKLIST COPY AND PASTE
 
 deck_text = """
-Pokémon: 16
-4 N's Zorua JTG 97
-4 N's Zoroark ex JTG 98
-2 Munkidori TWM 95
-2 N's Reshiram JTG 116
-1 Yveltal MEG 88
-1 Fezandipiti ex SFA 38
-1 Pecharunt ex SFA 39
-1 Okidogi ex SFA 36
 
-Trainer: 37
-3 Cyrano SSP 170
-3 Iono PAL 185
-3 Boss's Orders MEG 114
-2 Lillie's Determination MEG 119
-2 Janine's Secret Art PRE 112
-1 Penny SVI 183
-1 Xerosic's Machinations SFA 64
-1 Professor Turo's Scenario PAR 171
-4 Buddy-Buddy Poffin TEF 144
-2 Counter Catcher PAR 160
-2 Energy Switch MEG 115
-2 Super Rod PAL 188
-1 Night Stretcher SFA 61
-1 Secret Box TWM 163
-1 Pal Pad SVI 182
-1 Nest Ball SVI 181
-1 N's PP Up JTG 153
-1 Air Balloon BLK 79
-1 Binding Mochi PRE 95
-2 Artazon PAL 171
-2 Team Rocket's Watchtower DRI 180
-
-Energy: 7
-7 Darkness Energy SVE 7
 """
 
 
@@ -455,3 +421,4 @@ def openurl(y):
 
 
 quequiereshacer()
+
