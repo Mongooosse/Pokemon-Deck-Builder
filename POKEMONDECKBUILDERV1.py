@@ -105,7 +105,6 @@ def inputcards(StorageOption):
             cards[StorageOption].append(new_card)
             print("Saved:", new_card)
 
-        # ✅ Save the full list, not a single card
         saveCards(cards)
 
 ##############################################
@@ -566,3 +565,4 @@ quequiereshacer()
 #                "Amount": 2
 #            }]]
 1
+
