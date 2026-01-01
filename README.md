@@ -127,6 +127,10 @@ python main.py
 - GUI or web-based interface
 - Improved error handling and automated testing
 
+## Currently Working On Web Application Migration (Flask)
+- Transition the command-line application into a Flask-based web interface, exposing inventory management, deck validation, and search functionality through a RESTful backend and browser-based UI.
+
+
 ---
 
 ## License
